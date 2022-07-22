@@ -4,14 +4,14 @@ interface ContractProps {
   readonly id: string
   readonly status: "PENDING" | "ACTIVE"
   readonly customerRef: string
-  readonly signedAt: Date
+  readonly signedAt: string
 }
 
 export class Contract implements ContractProps {
   readonly id: string
   readonly status: "PENDING" | "ACTIVE"
   readonly customerRef: string
-  readonly signedAt: Date
+  readonly signedAt: string
 
   private constructor(props: ContractProps) {
     this.id = props.id;

@@ -17,6 +17,10 @@ export class InMemoryContracts {
     return this.dataByCustomerRef.get(customerRef) || [];
   }
 
+  async findById(contractId: string): Promise<Contract | undefined> {
+    return this.data.get(contractId);
+  }
+
   async save(contract: Contract): Promise<void> {
     this.data.set(contract.id, contract);
     const byCustomerRef = this.dataByCustomerRef.get(contract.customerRef)!;
