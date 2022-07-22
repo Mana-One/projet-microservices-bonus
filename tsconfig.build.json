@@ -4,6 +4,7 @@
     "noEmit": true,
     "module": "commonjs",
     "strict": true,
+    "incremental": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
