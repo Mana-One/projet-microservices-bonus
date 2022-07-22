@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "esModuleInterop": true,
+    "paths": {
+      "@micro-project/contracts/*": ["contracts/src/*"],
+      "@micro-project/billing/*": ["billing/src/*"]
+    }
+  }
+}

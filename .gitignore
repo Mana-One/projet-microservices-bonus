@@ -1,0 +1,17 @@
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+
+# NodeJS
+node_modules/
+build/
+types/
+coverage/
+tsconfig*.tsbuildinfo
+yarn-error.log
+
+# Other
+.env*
