@@ -4,7 +4,8 @@
     "esModuleInterop": true,
     "paths": {
       "@micro-project/contracts/*": ["contracts/src/*"],
-      "@micro-project/billing/*": ["billing/src/*"]
+      "@micro-project/billing/*": ["billing/src/*"],
+      "@micro-project/gateway/*": ["gateway/src/*"]
     }
   }
 }

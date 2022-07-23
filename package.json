@@ -7,6 +7,7 @@
   "scripts": {
     "contracts": "yarn workspace @micro-project/contracts",
     "billing": "yarn workspace @micro-project/billing",
+    "gateway": "yarn workspace @micro-project/gateway",
     "build": "lerna run build --stream",
     "clean": "rm ./packages/*/*.tsbuildinfo"
   },
