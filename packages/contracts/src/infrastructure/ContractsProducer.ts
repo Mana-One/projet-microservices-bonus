@@ -1,15 +1,16 @@
 import { Injectable } from "@nestjs/common";
 import { Kafka, Producer } from "kafkajs";
+import { ConfigService } from "./ConfigService";
 
 @Injectable()
 export class ContractsProducer {
   private readonly kafkaInstance: Kafka;
   private producer: Producer;
 
-  constructor() {
+  constructor(private readonly configService: ConfigService) {
     this.kafkaInstance = new Kafka({
       clientId: "first-kafka-client",
-      brokers: ["localhost:9092"],
+      brokers: [this.configService.KAFKA_BOOTSTRAP],
       connectionTimeout: 3000,
       authenticationTimeout: 1000,
       reauthenticationThreshold: 10_000,

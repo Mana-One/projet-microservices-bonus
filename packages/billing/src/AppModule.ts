@@ -1,27 +1,30 @@
 import { Module } from "@nestjs/common";
-import { ClientsModule, Transport } from "@nestjs/microservices";
+import { ClientKafka, ClientProxyFactory, ClientsModule, Transport } from "@nestjs/microservices";
 import { InMemorySubscriptions } from "./domain/Subscriptions";
 import { BillingController } from "./infrastructure/BillingController";
+import { ConfigService } from "./infrastructure/ConfigService";
 
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: 'CONTRACTS_SERVICE',
-        transport: Transport.KAFKA,
-        options: {
-          client: {
-            clientId: "contracts",
-            brokers: ["localhost:9092"],
-          },
-          consumer: {
-            groupId: "contracts-consumer"
+  providers: [
+    InMemorySubscriptions, 
+    ConfigService, {
+      provide: "CONTRACTS_SERVICE",
+      useFactory: (configService: ConfigService) => {
+        return ClientProxyFactory.create({
+          transport: Transport.KAFKA,
+          options: {
+            client: {
+              clientId: "contracts",
+              brokers: [configService.KAFKA_BOOTSTRAP],
+            },
+            consumer: {
+              groupId: "contracts-consumer"
+            }
           }
-        }
+        })
       },
-    ]),
-  ],
-  providers: [InMemorySubscriptions],
+      inject: [ConfigService]
+  }],
   controllers: [BillingController]
 })
 export class AppModule {}

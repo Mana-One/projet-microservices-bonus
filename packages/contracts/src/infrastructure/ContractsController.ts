@@ -1,5 +1,4 @@
-import { Body, Controller, Get, Inject, Param, Post, Put } from "@nestjs/common";
-import { ClientKafka } from "@nestjs/microservices";
+import { Body, Controller, Get, Param, Post, Put } from "@nestjs/common";
 import { Contract } from "../domain/Contract";
 import { InMemoryContracts } from "../domain/InMemoryContracts";
 import { ContractsProducer } from "./ContractsProducer";
