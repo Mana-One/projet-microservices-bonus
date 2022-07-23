@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from "class-validator"
 
-export class ContractCreated {
+export class ContractActivated {
   @IsNotEmpty()
   @IsString()
   contractId!: string

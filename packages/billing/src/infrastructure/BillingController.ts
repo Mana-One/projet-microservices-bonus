@@ -1,15 +1,18 @@
-import { Controller, Get, Param } from "@nestjs/common";
-import { EventPattern, Payload } from "@nestjs/microservices";
+import { Controller, Get, Logger, Param } from "@nestjs/common";
+import { MessagePattern, Payload } from "@nestjs/microservices";
 import { Subscription } from "../domain/Subscription";
 import { InMemorySubscriptions } from "../domain/Subscriptions";
-import { ContractCreated } from "./ContractCreated";
+import { ContractActivated } from "./ContractActivated";
 
 @Controller()
 export class BillingController {
+  private logger = new Logger(BillingController.name);
+
   constructor(private readonly subscriptions: InMemorySubscriptions) {}
 
-  @EventPattern("contract.created")
-  async createSubscription(@Payload() payload: ContractCreated) {
+  @MessagePattern("contract.activated")
+  async createSubscription(@Payload() payload: ContractActivated) {
+    this.logger.log("Received payload");
     await this.subscriptions.add(Subscription.create(payload));
   }
 

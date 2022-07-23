@@ -2,13 +2,14 @@ import { Body, Controller, Get, Inject, Param, Post, Put } from "@nestjs/common"
 import { ClientKafka } from "@nestjs/microservices";
 import { Contract } from "../domain/Contract";
 import { InMemoryContracts } from "../domain/InMemoryContracts";
+import { ContractsProducer } from "./ContractsProducer";
 import { CreateContractRequest } from "./CreateContractRequest";
 
 @Controller()
 export class ContractsController {
   constructor(
     private readonly contracts: InMemoryContracts,
-    @Inject("CONTRACTS_SERVICE") private readonly kafka: ClientKafka
+    private readonly contractsProducer: ContractsProducer
   ) {}
 
   @Post()
@@ -21,7 +22,7 @@ export class ContractsController {
   async listContractsByCustomer(@Param("customerRef") customerRef: string) {
     return await this.contracts.listByCustomerRef(customerRef)
       .then(res => res.map(c => ({
-        id: c.id,
+        contractId: c.id,
         status: c.status,
         customerRef: c.customerRef,
         signedAt: c.signedAt })));
@@ -32,8 +33,8 @@ export class ContractsController {
     const contract = await this.contracts.findById(contractId);
     if (contract !== undefined) {
       await this.contracts.save(contract.activate());
-      this.kafka.emit("contract.activated", {
-        id: contract.id, 
+      this.contractsProducer.publish({
+        contractId: contract.id, 
         customerRef: contract.customerRef,
         signedAt: contract.signedAt });
     }

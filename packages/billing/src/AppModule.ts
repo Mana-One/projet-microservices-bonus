@@ -15,7 +15,7 @@ import { BillingController } from "./infrastructure/BillingController";
             brokers: ["localhost:9092"],
           },
           consumer: {
-            groupId: "constracts-consumer"
+            groupId: "contracts-consumer"
           }
         }
       },
