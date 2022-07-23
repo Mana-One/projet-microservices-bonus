@@ -1,0 +1,7 @@
+{
+  "name": "@micro-project/billing",
+  "version": "1.0.0",
+  "main": "./build/main.js",
+  "license": "MIT",
+  "private": true
+}
