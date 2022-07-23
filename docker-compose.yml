@@ -7,8 +7,8 @@ services:
 
   kafka:
     image: wurstmeister/kafka
-    ports:
-      - "9092:9092"
+    # ports:
+    #   - "9092:9092"
     expose:
       - "9093"
     environment:
@@ -19,3 +19,34 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  contracts:
+    container_name: contracts-api
+    hostname: contracts
+    build: ./packages/contracts
+    depends_on:
+      - kafka
+    environment:
+      - KAFKA_BOOTSTRAP=kafka:9092
+
+  billing:
+    container_name: billing-api
+    hostname: billing
+    build: ./packages/billing
+    depends_on:
+      - kafka
+    environment:
+      - KAFKA_BOOTSTRAP=kafka:9092
+
+  gateway:
+    container_name: gateway-api
+    hostname: gateway
+    build: ./packages/gateway
+    ports: 
+      - "80:3002"
+    depends_on:
+      - contracts
+      - billing
+    environment:
+      - CONTRACTS_URL=http://contracts:3000/
+      - BILLING_URL=http://billing:3001/
