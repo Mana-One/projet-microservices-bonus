@@ -1,6 +1,5 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import axios from "axios";
-import { Contract, ContractCreation } from "../graphql";
 
 @Resolver("Contract")
 export class ContractsResolver {
