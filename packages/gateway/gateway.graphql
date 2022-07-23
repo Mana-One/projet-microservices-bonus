@@ -7,27 +7,32 @@ type Contract {
   id: String!
   status: ContractStatus!
   customerRef: String!
-  signedAt: date!
+  signedAt: String!
 }
 
-enum SubscriptionStatus {
-  ACTIVE
-  SUSPENDED
-}
+#enum SubscriptionStatus {
+#  ACTIVE
+#  SUSPENDED
+#}
 
-type Subscription {
-  id: String!
-  contractId: String!
-  status: SubscriptionStatus
-  customerRef: String!
-}
+#type Subscription {
+#  id: String!
+#  contractId: String!
+#  status: SubscriptionStatus
+#  customerRef: String!
+#}
 
 input ContractCreation {
   customerRef: String!
-  signedAt: date!
+  signedAt: String!
 }
 
 type Query {
   listContracts(customerRef: String!): [Contract]
-  listSubscriptions(customerRef: String!): [Subscription]
+  # listSubscriptions(customerRef: String!): [Subscription]
+}
+
+type Mutation {
+  createContract(input: ContractCreation!): Boolean
+  activateContract(contractId: String!): Boolean
 }

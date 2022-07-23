@@ -22,7 +22,7 @@ export class ContractsController {
   async listContractsByCustomer(@Param("customerRef") customerRef: string) {
     return await this.contracts.listByCustomerRef(customerRef)
       .then(res => res.map(c => ({
-        contractId: c.id,
+        id: c.id,
         status: c.status,
         customerRef: c.customerRef,
         signedAt: c.signedAt })));
