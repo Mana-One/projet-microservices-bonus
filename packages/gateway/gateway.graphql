@@ -1,0 +1,33 @@
+enum ContractStatus {
+  PENDING
+  ACTIVE
+}
+
+type Contract {
+  id: String!
+  status: ContractStatus!
+  customerRef: String!
+  signedAt: date!
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+type Subscription {
+  id: String!
+  contractId: String!
+  status: SubscriptionStatus
+  customerRef: String!
+}
+
+input ContractCreation {
+  customerRef: String!
+  signedAt: date!
+}
+
+type Query {
+  listContracts(customerRef: String!): [Contract]
+  listSubscriptions(customerRef: String!): [Subscription]
+}
