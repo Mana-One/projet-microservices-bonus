@@ -60,6 +60,9 @@ services:
       dockerfile: gateway.Dockerfile
     ports: 
       - "8000:3002"
+    depends_on:
+      - contracts
+      - billing
     environment:
       - CONTRACTS_URL=http://contracts:3000/
       - BILLING_URL=http://billing:3001/
