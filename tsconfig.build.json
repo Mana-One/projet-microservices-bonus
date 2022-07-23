@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ES6",
     "noEmit": true,
+    "noEmitOnError": true,
     "module": "commonjs",
     "strict": true,
     "incremental": true,
